@@ -2,5 +2,7 @@
 
 ## 启动 demo
 
-`cd comment-app`
-`npm start`
+```
+cd comment-app
+npm start
+```
