@@ -19,8 +19,17 @@ class CommentInput extends Component {
         })
     }
     commit() {
+        if(!this.state.username) {
+            return alert('请输入用户名')
+        }
+        if(!this.state.content) {
+            return alert('请输入评论内容')
+        }
         if(this.props.onSubmit) {
             this.props.onSubmit(this.state)
+            this.setState({
+                content: ''
+            })
         }
     }
     render() {
