@@ -10,10 +10,21 @@ class CommentApp extends Component {
         }
     }
     getComment(comment) {
-        this.state.comments.push(comment)
+        let comments = this.state.comments
+        comments.push(comment)
         this.setState({
-            comments: this.state.comments
+            comments: comments
         })
+        localStorage.setItem('comments', JSON.stringify(comments))
+    }
+    loadComments() {
+        let comments = JSON.parse(localStorage.getItem('comments')) || []
+        this.setState({
+            comments: comments
+        })
+    }
+    componentWillMount() {
+        this.loadComments()
     }
     render() {
         return (
