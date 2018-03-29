@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 
 class CommentInput extends Component {
+    static propTypes = {
+        onSubmit: PropTypes.func
+    }
     constructor() {
         super()
         this.state = {
@@ -32,6 +36,20 @@ class CommentInput extends Component {
             })
         }
     }
+    saveUsername() {
+        if(this.state.username !== '') {
+            localStorage.setItem('username', this.state.username)
+        }
+    }
+    loadUsername() {
+        let username = localStorage.getItem('username')
+        this.setState({
+            username: username
+        })
+    }
+    componentWillMount() {
+        this.loadUsername()
+    }
     render() {
         return (
             <div className="comment-input">
@@ -42,6 +60,8 @@ class CommentInput extends Component {
                             type="text" 
                             value={this.state.username} 
                             onChange={this.changeUsername.bind(this)}
+                            onBlur={this.saveUsername.bind(this)}
+                            ref={(input) => { this.input = input }}
                         />
                     </div>
                 </div>
@@ -49,10 +69,10 @@ class CommentInput extends Component {
                     <span className="comment-field-name">评论内容：</span>
                     <div className="comment-field-input">
                         <textarea 
-                            cols="30" 
-                            rows="10" 
                             value={this.state.content} 
-                            onChange={this.changeContent.bind(this)}>
+                            onChange={this.changeContent.bind(this)}
+                            ref={(textarea) => { this.textarea = textarea }}
+                        >
                         </textarea>
                     </div>
                 </div>
@@ -61,6 +81,13 @@ class CommentInput extends Component {
                 </div>
             </div>
         )
+    }
+    componentDidMount() {
+        if(this.state.username === '') {
+            this.input.focus()
+        } else {
+            this.textarea.focus()
+        }
     }
 }
 
