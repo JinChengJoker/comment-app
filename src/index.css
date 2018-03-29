@@ -99,7 +99,7 @@ body {
   font-style: italic;
 }
 
-.comment-createdtime {
+.comment-timestamp {
   padding-right: 5px;
   position: absolute;
   bottom: 0;

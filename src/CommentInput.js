@@ -30,7 +30,10 @@ class CommentInput extends Component {
             return alert('请输入评论内容')
         }
         if(this.props.onSubmit) {
-            this.props.onSubmit(this.state)
+            this.props.onSubmit({
+                ...this.state,
+                timestamp: new Date().getTime()
+            })
             this.setState({
                 content: ''
             })
